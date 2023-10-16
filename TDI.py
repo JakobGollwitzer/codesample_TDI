@@ -1,21 +1,9 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 from scipy import signal
 from tempfile import TemporaryFile
-
-
-# In[3]:
-
-
-get_ipython().run_line_magic('matplotlib', 'notebook')
 
 ### extract arrays from HDF5 file from measurement. ~30000 detector shots/images per file 
 f = h5py.File('/data3/2021/2021_3_LCLS_LAO/smalldata/xpplv7918_Run0034.h5','r') ## Open Measurement HDF5
@@ -54,18 +42,6 @@ for index in range(len(timeDelayBin)):
 for index in range(len(timeDelayBin)):
     avg_ipm_off = np.mean(ipm_off[np.where(np.digitize(delays_off, bins = timeDelayBin) == index)])
     meanArray_off[index] = np.mean(detec_off[np.where(np.digitize(delays_off, bins = timeDelayBin) == index)])/avg_ipm_off
-
-
-plt.plot(timeDelayBin, meanArray_on, '-o', color='red', label='laser on')
-plt.plot(timeDelayBin, meanArray_off, '-o', color='black', label='laser off')
-plt.xlabel("time delay (ps)")
-plt.ylabel("avg. detector intensity (arb. units.)")
-
-plt.legend()
-
-
-# In[ ]:
-
 
 
 
